@@ -10,3 +10,6 @@ output "private_frontend_subnets" {
   value = module.networking.private_frontend_subnets
 }
 
+output "bastion_sg_id" {
+  value = module.security.bastion_sg_id
+}

@@ -9,3 +9,16 @@ module "networking" {
   db_subnet_cidrs       = local.db_subnet_cidrs
   tags                  = local.tags
 }
+
+module "security" {
+  source = "./modules/security"
+
+  vpc_id         = module.networking.vpc_id
+  tags           = local.tags
+  my_ip          = var.my_ip
+  frontend_port  = var.frontend_port
+  backend_port   = var.backend_port
+  db_port        = var.db_port
+
+  depends_on = [module.networking]  
+}
