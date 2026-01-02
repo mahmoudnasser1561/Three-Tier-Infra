@@ -22,3 +22,16 @@ module "security" {
 
   depends_on = [module.networking]  
 }
+
+module "bastion" {
+  source = "./modules/bastion"
+
+  vpc_id            = module.networking.vpc_id
+  public_subnet_id  = module.networking.public_subnets[0] 
+  bastion_sg_id     = module.security.bastion_sg_id
+  tags              = local.tags
+  instance_type     = var.instance_type
+  key_name          = var.key_name
+
+  depends_on = [module.security]
+}
