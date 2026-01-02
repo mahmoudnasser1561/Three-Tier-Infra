@@ -16,3 +16,13 @@ This project implements a production-style, modular, scalable and secure 3-tier 
 - Bastion host used for SSH access
 - No direct internet access to private subnets
 - NAT Gateway for outbound access
+
+### Todo
+- remote state with backend.tf
+- frontend asg
+- backend asg
+- rds 
+- cloudwatch
+- sns 
+- email notifications
+- CI/CD 
