@@ -68,15 +68,33 @@ module "frontend" {
   depends_on = [module.loadbalancers]
 }
 
+module "backend" {
+  source = "./modules/backend"
+
+  vpc_id               = module.networking.vpc_id
+  private_subnets      = module.networking.private_backend_subnets
+  backend_sg_id        = module.security.backend_sg_id
+  backend_tg_arn       = module.loadbalancers.backend_tg_arn
+  tags                 = local.tags
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  asg_min_size         = var.asg_min_size
+  asg_max_size         = var.asg_max_size
+  asg_desired_capacity = var.asg_desired_capacity
+  backend_port         = var.backend_port
+
+  depends_on = [module.loadbalancers]
+}
+
 module "monitoring" {
   source = "./modules/monitoring"
 
   tags                = local.tags
   notification_email  = var.notification_email
   frontend_asg_name   = module.frontend.asg_name
-  # backend_asg_name  = module.backend.asg_name  
+  backend_asg_name  = module.backend.asg_name  
   # db_identifier     = module.database.db_identifier  
   cpu_threshold       = var.cpu_threshold
 
-  depends_on = [module.frontend]  
+  depends_on = [module.frontend, module.backend]  
 }

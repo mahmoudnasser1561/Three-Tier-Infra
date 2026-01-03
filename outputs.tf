@@ -33,3 +33,7 @@ output "frontend_asg_name" {
 output "sns_topic_arn" {
   value = module.monitoring.sns_topic_arn
 }
+
+output "backend_asg_name" {
+  value = module.backend.asg_name
+}
