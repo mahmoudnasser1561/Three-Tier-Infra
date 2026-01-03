@@ -61,3 +61,13 @@ variable "asg_desired_capacity" {
   type    = number
   default = 2
 }
+
+variable "notification_email" {
+  type        = string
+  default     = "admin@gmail.com"
+}
+
+variable "cpu_threshold" {
+  type    = number
+  default = 70
+}

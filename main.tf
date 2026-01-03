@@ -67,3 +67,16 @@ module "frontend" {
 
   depends_on = [module.loadbalancers]
 }
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  tags                = local.tags
+  notification_email  = var.notification_email
+  frontend_asg_name   = module.frontend.asg_name
+  # backend_asg_name  = module.backend.asg_name  
+  # db_identifier     = module.database.db_identifier  
+  cpu_threshold       = var.cpu_threshold
+
+  depends_on = [module.frontend]  
+}
