@@ -50,3 +50,20 @@ module "loadbalancers" {
 
   depends_on = [module.networking, module.security]
 }
+
+module "frontend" {
+  source = "./modules/frontend"
+
+  vpc_id               = module.networking.vpc_id
+  private_subnets      = module.networking.private_frontend_subnets
+  frontend_sg_id       = module.security.frontend_sg_id
+  frontend_tg_arn      = module.loadbalancers.frontend_tg_arn
+  tags                 = local.tags
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  asg_min_size         = var.asg_min_size
+  asg_max_size         = var.asg_max_size
+  asg_desired_capacity = var.asg_desired_capacity
+
+  depends_on = [module.loadbalancers]
+}

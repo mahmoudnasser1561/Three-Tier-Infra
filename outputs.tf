@@ -25,3 +25,7 @@ output "public_alb_dns" {
 output "internal_alb_dns" {
   value = module.loadbalancers.internal_alb_dns
 }
+
+output "frontend_asg_name" {
+  value = module.frontend.asg_name
+}
