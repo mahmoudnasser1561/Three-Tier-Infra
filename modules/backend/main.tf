@@ -21,16 +21,6 @@ resource "aws_launch_template" "backend" {
     yum update -y
     curl -sL https://rpm.nodesource.com/setup_18.x | bash -
     yum install -y nodejs
-    mkdir /app && cd /app
-    npm init -y
-    npm install express
-    cat <<EOT > server.js
-    const express = require('express');
-    const app = express();
-    app.get('/', (req, res) => res.send('Hello from Backend'));
-    app.listen(${var.backend_port}, () => console.log('Backend running on ${var.backend_port}'));
-    EOT
-    node server.js &
   EOF
   )
 

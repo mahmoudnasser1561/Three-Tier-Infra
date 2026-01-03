@@ -22,7 +22,6 @@ resource "aws_launch_template" "frontend" {
     yum install -y nginx
     systemctl start nginx
     systemctl enable nginx
-    echo "Hello from Frontend" > /usr/share/nginx/html/index.html
   EOF
   )
 
