@@ -17,3 +17,11 @@ output "bastion_sg_id" {
 output "bastion_public_ip" {
   value = module.bastion.bastion_public_ip
 }
+
+output "public_alb_dns" {
+  value = module.loadbalancers.public_alb_dns
+}
+
+output "internal_alb_dns" {
+  value = module.loadbalancers.internal_alb_dns
+}

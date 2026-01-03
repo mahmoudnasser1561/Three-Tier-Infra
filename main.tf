@@ -35,3 +35,18 @@ module "bastion" {
 
   depends_on = [module.security]
 }
+
+module "loadbalancers" {
+  source = "./modules/loadbalancers"
+
+  vpc_id                    = module.networking.vpc_id
+  public_subnets            = module.networking.public_subnets
+  private_frontend_subnets  = module.networking.private_frontend_subnets
+  alb_public_sg_id          = module.security.alb_public_sg_id
+  internal_lb_sg_id         = module.security.internal_lb_sg_id
+  tags                      = local.tags
+  frontend_port             = var.frontend_port
+  backend_port              = var.backend_port
+
+  depends_on = [module.networking, module.security]
+}
