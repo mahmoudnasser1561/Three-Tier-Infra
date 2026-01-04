@@ -86,6 +86,21 @@ module "backend" {
   depends_on = [module.loadbalancers]
 }
 
+module "database" {
+  source = "./modules/database"
+
+  private_subnets = module.networking.private_db_subnets
+  db_sg_id        = module.security.db_sg_id
+  tags            = local.tags
+  db_instance_type = var.db_instance_type
+  db_name         = var.db_name
+  db_username     = var.db_username
+  db_password     = var.db_password
+  db_port         = var.db_port
+
+  depends_on = [module.backend]
+}
+
 module "monitoring" {
   source = "./modules/monitoring"
 
@@ -93,8 +108,8 @@ module "monitoring" {
   notification_email  = var.notification_email
   frontend_asg_name   = module.frontend.asg_name
   backend_asg_name  = module.backend.asg_name  
-  # db_identifier     = module.database.db_identifier  
+  db_identifier     = module.database.db_identifier  
   cpu_threshold       = var.cpu_threshold
 
-  depends_on = [module.frontend, module.backend]  
+  depends_on = [module.frontend, module.backend, module.database]  
 }
