@@ -40,3 +40,7 @@ variable "asg_desired_capacity" {
   type    = number
   default = 2
 }
+
+variable "iam_instance_profile" {
+  type = string
+}

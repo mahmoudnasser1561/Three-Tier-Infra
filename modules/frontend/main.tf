@@ -15,6 +15,9 @@ resource "aws_launch_template" "frontend" {
   key_name      = var.key_name
 
   vpc_security_group_ids = [var.frontend_sg_id]
+  iam_instance_profile {
+    name = var.iam_instance_profile
+  }
 
   user_data = base64encode(<<-EOF
     #!/bin/bash
