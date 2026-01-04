@@ -37,3 +37,7 @@ output "sns_topic_arn" {
 output "backend_asg_name" {
   value = module.backend.asg_name
 }
+
+output "db_endpoint" {
+  value = module.database.db_endpoint
+}
