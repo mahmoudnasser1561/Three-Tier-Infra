@@ -44,3 +44,7 @@ variable "asg_desired_capacity" {
 variable "backend_port" {
   type = number
 }
+
+variable "iam_instance_profile" {
+  type = string
+}
