@@ -29,3 +29,7 @@ variable "associate_public_ip" {
   type    = bool
   default = true
 }
+
+variable "iam_instance_profile" {
+  type = string
+}
