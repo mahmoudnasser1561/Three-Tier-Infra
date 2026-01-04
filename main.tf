@@ -32,6 +32,7 @@ module "bastion" {
   tags              = local.tags
   instance_type     = var.instance_type
   key_name          = var.key_name
+  iam_instance_profile = module.iam.bastion_instance_profile
 
   depends_on = [module.security]
 }
@@ -64,6 +65,7 @@ module "frontend" {
   asg_min_size         = var.asg_min_size
   asg_max_size         = var.asg_max_size
   asg_desired_capacity = var.asg_desired_capacity
+  iam_instance_profile = module.iam.app_instance_profile
 
   depends_on = [module.loadbalancers]
 }
@@ -82,6 +84,7 @@ module "backend" {
   asg_max_size         = var.asg_max_size
   asg_desired_capacity = var.asg_desired_capacity
   backend_port         = var.backend_port
+  iam_instance_profile = module.iam.app_instance_profile
 
   depends_on = [module.loadbalancers]
 }
@@ -112,4 +115,10 @@ module "monitoring" {
   cpu_threshold       = var.cpu_threshold
 
   depends_on = [module.frontend, module.backend, module.database]  
+}
+
+module "iam" {
+  source = "./modules/iam"
+
+  tags = local.tags
 }
